@@ -9,6 +9,8 @@ import Register from './../pages/Register/Register';
 import Dashboard from './../pages/Dashboard/Dashboard';
 import PrivateRoute from "../components/PrivateRoute";
 import ActivateAccount from "../pages/Register/ActivateAccount";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import Profile from "../pages/Profile/Profile";
 
 
 export const router = createBrowserRouter([
@@ -30,10 +32,6 @@ export const router = createBrowserRouter([
         element: <Shop />
       },
       {
-        path: "dashboard",
-        element: <PrivateRoute> <Dashboard /> </PrivateRoute>
-      },
-      {
         path: "activate/:uid/:token",
         element: <ActivateAccount></ActivateAccount>
       },
@@ -47,4 +45,19 @@ export const router = createBrowserRouter([
     path: "register",
     element: <Register />
   },
+  {
+    path: "dashboard",
+    element: <PrivateRoute> <DashboardLayout/> </PrivateRoute>,
+      children: [
+        {
+          index: true,
+          element: <Dashboard />
+        },
+        {
+          path: "profile",
+          element: <Profile />
+        },
+      ]
+  },
+  
 ]);
