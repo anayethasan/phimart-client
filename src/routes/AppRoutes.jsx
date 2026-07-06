@@ -11,6 +11,8 @@ import PrivateRoute from "../components/PrivateRoute";
 import ActivateAccount from "../pages/Register/ActivateAccount";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import Profile from "../pages/Profile/Profile";
+import ResetPasswordConfirm from "../components/Dashboard/Profile/ResetPasswordConfirm";
+import ResendActivation from "../components/Dashboard/Profile/ResendActivation";
 
 
 export const router = createBrowserRouter([
@@ -35,6 +37,10 @@ export const router = createBrowserRouter([
         path: "activate/:uid/:token",
         element: <ActivateAccount></ActivateAccount>
       },
+      {
+        path: "password/reset/confirm/:uid/:token",
+        element: <ResetPasswordConfirm></ResetPasswordConfirm>
+      },
     ]
   },
   {
@@ -44,6 +50,10 @@ export const router = createBrowserRouter([
   {
     path: "register",
     element: <Register />
+  },
+  {
+    path: "resend-activation",
+    element: <ResendActivation></ResendActivation>
   },
   {
     path: "dashboard",

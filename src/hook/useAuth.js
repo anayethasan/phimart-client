@@ -113,8 +113,41 @@ const useAuth = () => {
         setUser(null);
         localStorage.removeItem("authTokens");
     };
+
+    //Resend Activation Email
+    const resendActivation = async (email) => {
+        setErrorMsg("");
+        try {
+            await apiClient.post("/auth/users/resend_activation/", { email });
+            return{
+                success: true,
+                message: "Activation email send to your mail. Please check your mail.",
+            }
+        } catch (error) {
+            return handleApiError(error, "Resend Activation Failed! Try again");
+        }
+    };
+
+    //Reset password confirm 
+    const resetPasswordConfirm = async (userId, token, new_password, re_new_password) => {
+        setErrorMsg("");
+        try {
+            await apiClient.post("/auth/users/reset_password_confirm/", {
+                userId,
+                token,
+                new_password,
+                re_new_password,
+            });
+            return {
+                success: true,
+                message: "Password Successfully reset done. now set your new password",
+            };
+        } catch (error) {
+            return handleApiError(error, "Password Rest Failed! try again")
+        }
+    };
     
-    return {user, errorMsg, loginUser, registerUser, logOutUser, updateUserProfile, changePassword};
+    return {user, errorMsg, loginUser, registerUser, logOutUser, updateUserProfile, changePassword, resendActivation, resetPasswordConfirm};
 };
 
 export default useAuth;
