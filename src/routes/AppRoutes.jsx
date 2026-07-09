@@ -13,6 +13,7 @@ import DashboardLayout from "../Layouts/DashboardLayout";
 import Profile from "../pages/Profile/Profile";
 import ResetPasswordConfirm from "../components/Dashboard/Profile/ResetPasswordConfirm";
 import ResendActivation from "../components/Dashboard/Profile/ResendActivation";
+import ProductDetails from "../pages/Product/ProductDetails";
 
 
 export const router = createBrowserRouter([
@@ -32,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "shop",
         element: <Shop />
+      },
+      {
+         path: "shop/:productId",
+         element: <ProductDetails></ProductDetails>
       },
       {
         path: "activate/:uid/:token",
