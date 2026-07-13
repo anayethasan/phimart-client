@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import ProductItem from "./ProductItem";
 import apiClient from "../../services/api_services";
 import ErrorAlert from "./ErrorAlert";
+import { Link } from "react-router";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
@@ -27,12 +28,12 @@ const Product = () => {
     <section className="mx-auto py-16 bg-gray-50">
       <div className="flex justify-between items-center px-4 md:px-8 mb-4">
         <h2 className="text-3xl md:text-4xl font-bold">Trending Products</h2>
-        <a
-          href="#"
+        <Link
+          to="shop"
           className="btn btn-secondary px-6 py-6 rounded-full text-lg"
         >
           View All
-        </a>
+        </Link>
       </div>
       {/* Spinner  */}
       {isLoading && (

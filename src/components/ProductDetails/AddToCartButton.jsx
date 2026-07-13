@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { FaCheck, FaMinus, FaPlus, FaShoppingCart } from "react-icons/fa";
+import useCartContext from './../../hook/useCartContext';
 
 
 const AddToCartButton = ({product}) => {
     const [quantity, setQuantity] = useState(1);
     const [isAdding, setIsAdding] = useState(false);
     const [isAdded, setIsAdded] = useState(false);
+    const { AddCartItems } = useCartContext();
 
     const decreaseQuantity = () => {
         if(quantity > 1) {
@@ -23,6 +25,7 @@ const AddToCartButton = ({product}) => {
     const addToCart = async () => {
         setIsAdding(true);
         try {
+          await AddCartItems(product.id, quantity);
             setIsAdded(true);
             setIsAdding(false);
         } catch (error) {
@@ -58,7 +61,7 @@ const AddToCartButton = ({product}) => {
         </div>
         <button
           className="btn btn-primary w-full"
-          onClick={addToCart}
+          onClick={ addToCart }
           disabled={isAdding || isAdded || product.stock === 0}
         >
           {isAdding ? (

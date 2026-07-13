@@ -24,7 +24,7 @@ const Sidebar = () => {
                 {/* Sidebar header */}
                 <div className="flex items-center gap-2 mb-6 px-2">
                 <FiShoppingCart className="h-6 w-6" />
-                <h1 className="text-xl font-bold">PhiMart</h1>
+                <Link to="/"><h1 className="text-xl font-bold">PhiMart</h1></Link>
                 </div>
 
                 {/* Sidebar menu */}

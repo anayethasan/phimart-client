@@ -14,6 +14,7 @@ import Profile from "../pages/Profile/Profile";
 import ResetPasswordConfirm from "../components/Dashboard/Profile/ResetPasswordConfirm";
 import ResendActivation from "../components/Dashboard/Profile/ResendActivation";
 import ProductDetails from "../pages/Product/ProductDetails";
+import Cart from "../pages/Cart/Cart";
 
 
 export const router = createBrowserRouter([
@@ -71,6 +72,10 @@ export const router = createBrowserRouter([
         {
           path: "profile",
           element: <Profile />
+        },
+        {
+          path: "cart",
+          element: <Cart />
         },
       ]
   },

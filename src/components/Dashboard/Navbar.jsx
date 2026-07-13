@@ -5,7 +5,7 @@ import useAuthContext from "../../hook/useAuthContext";
 const Navbar = ({ sidebarOpen }) => {
   const {logOutUser} = useAuthContext();
   return (
-    <div className="navbar bg-base-100 border-b">
+    <div className="navbar bg-base-100 border-b ">
       <div className="flex-none lg:hidden">
         <label htmlFor="drawer-toggle" className="btn btn-square btn-ghost">
           {sidebarOpen ? (
@@ -34,8 +34,10 @@ const Navbar = ({ sidebarOpen }) => {
           >
             <li>
               <Link to="profile" className="justify-between">
-                Profile
-                <span className="badge">New</span>
+                <Link>
+                  Profile
+                  <span className="badge">New</span>
+                </Link>
               </Link>
             </li>
             <li>

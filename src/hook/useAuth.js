@@ -78,7 +78,8 @@ const useAuth = () => {
             //After Login set user
             await fetchUserProfile();
         } catch (error) {
-            setErrorMsg(error.response.data?.detail);
+            setErrorMsg(error.response?.data?.detail);
+            throw error;
         }
     };
 
