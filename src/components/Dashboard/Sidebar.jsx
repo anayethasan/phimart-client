@@ -1,18 +1,32 @@
 import { FiBarChart2, FiPackage, FiPlusCircle, FiShoppingCart, FiStar, FiTag, FiUsers } from "react-icons/fi";
+import { LuBaggageClaim } from "react-icons/lu";
 import { Link } from "react-router";
-
+import useAuthContext from "../../hook/useAuthContext";
 
 const Sidebar = () => {
-    const menuItems = [
+    const {user} = useAuthContext();
+
+    const customerMenus = [
+        { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
+        { to: "/dashboard/cart", icon: LuBaggageClaim, label: "cart" },
+        { to: "/dashboard/orders", icon: FiShoppingCart, label: "Orders" },
+        { to: "/reviews", icon: FiStar, label: "Reviews" },
+    ];
+
+    const adminMenus = [
     { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
     { to: "/products", icon: FiPackage, label: "Products" },
     { to: "/products/add", icon: FiPlusCircle, label: "Add Product" },
     { to: "/categories", icon: FiTag, label: "Categories" },
     { to: "/categories/add", icon: FiPlusCircle, label: "Add Category" },
-    { to: "/orders", icon: FiShoppingCart, label: "Orders" },
+    { to: "/dashboard/cart", icon: LuBaggageClaim, label: "cart" },
+    { to: "/dashboard/orders", icon: FiShoppingCart, label: "Orders" },
     { to: "/reviews", icon: FiStar, label: "Reviews" },
     { to: "/users", icon: FiUsers, label: "Users" },
     ];
+
+    const menuItems = user.is_staff ? adminMenus : customerMenus;
+
     return (
         <div className="drawer-side z-10">
             <label

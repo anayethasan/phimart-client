@@ -113,6 +113,7 @@ const useAuth = () => {
         setAuthTokens(null);
         setUser(null);
         localStorage.removeItem("authTokens");
+        localStorage.removeItem("cartId");
     };
 
     //Resend Activation Email

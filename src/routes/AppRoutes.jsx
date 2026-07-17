@@ -15,6 +15,7 @@ import ResetPasswordConfirm from "../components/Dashboard/Profile/ResetPasswordC
 import ResendActivation from "../components/Dashboard/Profile/ResendActivation";
 import ProductDetails from "../pages/Product/ProductDetails";
 import Cart from "../pages/Cart/Cart";
+import Orders from "../pages/Order/Orders";
 
 
 export const router = createBrowserRouter([
@@ -76,6 +77,10 @@ export const router = createBrowserRouter([
         {
           path: "cart",
           element: <Cart />
+        },
+        {
+          path: "orders",
+          element: <Orders/>
         },
       ]
   },

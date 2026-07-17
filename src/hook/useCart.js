@@ -4,13 +4,13 @@ import authApiClient from "../services/auth-api-client";
 const useCart = () => {
     const [authToken] = useState(() => {
     const tokens = localStorage.getItem("authTokens");
-    return tokens ? JSON.parse(tokens).access : null;
+    return tokens ? JSON.parse(tokens)?.access : null;
     });
     const [cart, setCart] = useState(null);
     const [cartId, setCartId] = useState(() => localStorage.getItem("cartId"));
     const [loading, setLoading] = useState(false);
 
-    //Create a nest cart
+    //Create a new cart
     const createOrGetCart = useCallback(async () => {
         setLoading(true);
         try {
@@ -85,7 +85,7 @@ const useCart = () => {
         initializeCart();
     }, [createOrGetCart]);
 
-    return { cart, loading, createOrGetCart, AddCartItems, updateCartItemQuantity, deleteCartItems, };
+    return { cart, loading, cartId, createOrGetCart, AddCartItems, updateCartItemQuantity, deleteCartItems, };
 };
 
 export default useCart;
