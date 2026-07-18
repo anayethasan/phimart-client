@@ -1,33 +1,39 @@
 
+import { useNavigate } from 'react-router';
 import authApiClient from './../../services/auth-api-client';
+import useCartContext from './../../hook/useCartContext';
+import { useState } from 'react';
 
 const CartSummary = ({ totalPrice, itemCount, cartId }) => {
     const shipping = itemCount == 0 || parseFloat(totalPrice) > 100 ? 0 : 10;
     const tax = parseFloat(totalPrice) * 0.1;
     const orderTotal = parseFloat(totalPrice) + shipping + tax;
+    
+    const navigate = useNavigate();
+    const { clearCart } = useCartContext();
+    const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
-
-    const deleteCart = () => {
-      // try {
-      //   const response = await authApiClient.delete(`/carts/${cartId}/`);
-      //   console.log(response);
-      // } catch (error) {
-      //   console.log(error);
-      // } // when need delete in frontend
-
-      localStorage.removeItem("cartId");
-    };
+    // const deleteCart = async () => {
+    //   try {
+    //     const response = await authApiClient.delete(`/carts/${cartId}/`);
+    //     console.log(response);
+    //   } catch (error) {
+    //     console.log(error);
+    //   } // when need delete in frontend
+    // };
 
     const createOrder = async () => {
       try {
         const order = await authApiClient.post("/orders/", { cart_id: cartId });
         if(order.status === 201)
         {
-          deleteCart();
-          alert("order place successfully!");
+          clearCart();
+          navigate("/dashboard/orders");
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setIsPlacingOrder(false);
       }
     };
 
@@ -59,9 +65,16 @@ const CartSummary = ({ totalPrice, itemCount, cartId }) => {
             <button
             onClick={createOrder}
              className="btn btn-primary w-full"
-             disabled={itemCount===0}
+             disabled={itemCount===0 || isPlacingOrder}
              >
-              Proceed to Checkout
+              {isPlacingOrder ? (
+                <span className="flex items-center gap-2">
+                  <span className="loading loading-spinner loading-sm"></span>
+                  Placing Order...
+                </span>
+              ) : (
+                "Proceed to Checkout"
+              )}
             </button>
           </div>
         </div>

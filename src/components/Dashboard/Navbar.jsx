@@ -34,14 +34,12 @@ const Navbar = ({ sidebarOpen }) => {
           >
             <li>
               <Link to="profile" className="justify-between">
-                <Link>
-                  Profile
-                  <span className="badge">New</span>
-                </Link>
+                Profile
+                <span className="badge">New</span>
               </Link>
             </li>
             <li>
-              <Link href="/settings">Settings</Link>
+              <Link to="/settings">Settings</Link>
             </li>
             <li>
               <button onClick={logOutUser}>Logout</button>

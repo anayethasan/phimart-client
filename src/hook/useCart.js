@@ -30,6 +30,7 @@ const useCart = () => {
                 setCartId(response.data.id);
             }
             setCart(response.data);
+            return response.data;
         } catch (error) {
             console.log(error);
         } finally {
@@ -41,6 +42,11 @@ const useCart = () => {
     //Add items to the cart
     const AddCartItems = useCallback( async (product_id, quantity) => {
         setLoading(true);
+        let currentCartId = cartId;
+        if(!currentCartId) {
+            const newCart = await createOrGetCart();
+            currentCartId = newCart?.id;
+        }
         if(!cartId)
             await createOrGetCart();
 
@@ -49,6 +55,10 @@ const useCart = () => {
                 `carts/${cartId}/items/`, 
                 { product_id, quantity }
             );
+
+            const cartRes = await authApiClient.get(`carts/${currentCartId}/`);
+            setCart(cartRes.data);
+
             return response.data;
         } catch (error) {
             console.log("Error adding Items",error);
@@ -85,7 +95,14 @@ const useCart = () => {
         initializeCart();
     }, [createOrGetCart]);
 
-    return { cart, loading, cartId, createOrGetCart, AddCartItems, updateCartItemQuantity, deleteCartItems, };
+    //Clear cart state (when order place then local cart reset)
+    const clearCart = useCallback(() => {
+        localStorage.removeItem("cartId");
+        setCartId(null);
+        setCart(null);
+    }, []);
+
+    return { cart, loading, cartId, createOrGetCart, AddCartItems, updateCartItemQuantity, deleteCartItems, clearCart, };
 };
 
 export default useCart;
