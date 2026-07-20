@@ -35,6 +35,8 @@ const OrderCard = ({ order, onCancel }) => {
   const [cancelling, setCancelling] = useState(false);
   const [error, setError] = useState("");
 
+  const [loading, setLoading] = useState(false);
+
   const isStaff = !!user?.is_staff;
   const totalPrice = Number(order.total_price ?? 0);
 
@@ -55,6 +57,28 @@ const OrderCard = ({ order, onCancel }) => {
       setError("Failed to update status");
     } finally {
       setUpdating(false);
+    }
+  };
+
+  const handlePayment = async () => {
+    setLoading(true);
+    try {
+      const response = await authApiClient.post("/payment/initiate/", {
+        amount: order.total_price,
+        orderId: order.id,
+        numItems: order.items?.length,
+      });
+      if(response.data.payment_url){
+        setLoading(false);
+        window.location.href = response.data.payment_url;
+      }
+      else {
+        alert("payment failed!");
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -136,8 +160,12 @@ const OrderCard = ({ order, onCancel }) => {
         </div>
 
         {!isStaff && status === "Not Paid" && (
-          <button className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors">
-            Pay Now
+          <button 
+          onClick={handlePayment}
+          className="mt-4 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors"
+          disabled={loading}
+          >
+            { loading ? "Processing" : "Pay Now" }
           </button>
         )}
       </div>

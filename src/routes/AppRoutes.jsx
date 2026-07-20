@@ -16,6 +16,7 @@ import ResendActivation from "../components/Dashboard/Profile/ResendActivation";
 import ProductDetails from "../pages/Product/ProductDetails";
 import Cart from "../pages/Cart/Cart";
 import Orders from "../pages/Order/Orders";
+import PaymentSuccess from './../pages/Payment/PaymentSuccess';
 
 
 export const router = createBrowserRouter([
@@ -81,6 +82,10 @@ export const router = createBrowserRouter([
         {
           path: "orders",
           element: <Orders/>
+        },
+        {
+          path: "payment/success/",
+          element: <PaymentSuccess />
         },
       ]
   },
