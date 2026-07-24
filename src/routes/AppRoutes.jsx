@@ -18,6 +18,8 @@ import Cart from "../pages/Cart/Cart";
 import Orders from "../pages/Order/Orders";
 import PaymentSuccess from './../pages/Payment/PaymentSuccess';
 import AddProduct from "../pages/AddProduct/AddProduct";
+import AdminProductList from "../pages/AdminProductList/AdminProductList";
+import EditProduct from "../components/AdminProducts/EditProduct";
 
 
 export const router = createBrowserRouter([
@@ -91,6 +93,14 @@ export const router = createBrowserRouter([
         {
           path: "products/add",
           element: <AddProduct />
+        },
+        {
+          path: "products",
+          element: <AdminProductList />
+        },
+        {
+          path: "products/edit/:productId",
+          element: <EditProduct />
         },
       ]
   },
