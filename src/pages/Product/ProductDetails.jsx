@@ -4,6 +4,7 @@ import apiClient from "../../services/api_services";
 import { Link, useParams } from "react-router";
 import AddToCartButton from "../../components/ProductDetails/AddToCartButton";
 import { FaArrowLeft } from "react-icons/fa";
+import ReviewSection from "../../components/Reviews/ReviewSection";
 
 const ProductDetails = () => {
     const [product, setProduct] = useState(null);
@@ -96,6 +97,7 @@ const ProductDetails = () => {
                 </div>
                 </div>
             </div>
+            <ReviewSection />
         </div>
     );
 };
