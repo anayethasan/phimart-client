@@ -2,6 +2,12 @@ import { Link, NavLink } from "react-router";
 import useAuthContext from "../hook/useAuthContext";
 import useCartContext from "../hook/useCartContext";
 
+const navLinkClass = ({ isActive }) =>
+  `relative py-1 font-medium transition-colors duration-200 ${
+    isActive ? "text-primary" : "text-base-content/70 hover:text-base-content"
+  } after:content-[''] after:absolute after:left-0 after:-bottom-1 after:h-0.5 after:bg-primary after:transition-all after:duration-200 ${
+    isActive ? "after:w-full" : "after:w-0 hover:after:w-full"
+  }`;
 const Navbar = () => {
   const {user, logOutUser} = useAuthContext();
   const {cart} = useCartContext();
@@ -30,20 +36,14 @@ const Navbar = () => {
             tabIndex="-1"
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a>Item 1</a>
-            </li>
-            <li>
-              <a>Parent</a>
-              <ul className="p-2">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </li>
+            {user && (
+              <Link
+                to="/dashboard"
+                className="py-1 font-medium text-base-content/70 hover:text-base-content transition-colors duration-200"
+              >
+                Dashboard
+              </Link>
+            )}
             <li>
               <NavLink to="/shop">shop</NavLink>
             </li>
@@ -54,23 +54,19 @@ const Navbar = () => {
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Item 1</a>
+            {user && (
+              <Link
+                to="/dashboard"
+                className="py-1 font-medium text-base-content/70 hover:text-base-content transition-colors duration-200"
+              >
+                Dashboard
+              </Link>
+            )}
           </li>
           <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2 bg-base-100 w-40 z-1">
-                <li>
-                  <a>Submenu 1</a>
-                </li>
-                <li>
-                  <a>Submenu 2</a>
-                </li>
-              </ul>
-            </details>
-          </li>
-          <li>
-            <NavLink to="/shop">shop</NavLink>
+            <NavLink to="/shop" className={navLinkClass}>
+              Shop
+            </NavLink>
           </li>
         </ul>
       </div>

@@ -28,25 +28,26 @@ const formatDate = (dateStr) => {
   });
 };
 
-const OrderCard = ({ order, onCancel }) => {
+const OrderCard = ({ order, onCancel, onDelete }) => {
   const { user } = useAuthContext();
   const [status, setStatus] = useState(order.status);
   const [updating, setUpdating] = useState(false);
   const [cancelling, setCancelling] = useState(false);
+  const [deleting, setDeleting] = useState(false);
   const [error, setError] = useState("");
-
+ 
   const [loading, setLoading] = useState(false);
-
+ 
   const isStaff = !!user?.is_staff;
   const totalPrice = Number(order.total_price ?? 0);
-
+ 
   const handleStatusChange = async (event) => {
     const newStatus = event.target.value;
     const prevStatus = status;
     setUpdating(true);
     setError("");
     setStatus(newStatus); // optimistic update
-
+ 
     try {
       await authApiClient.patch(`/orders/${order.id}/update_status/`, {
         status: newStatus,
@@ -59,7 +60,7 @@ const OrderCard = ({ order, onCancel }) => {
       setUpdating(false);
     }
   };
-
+ 
   const handlePayment = async () => {
     setLoading(true);
     try {
@@ -81,7 +82,7 @@ const OrderCard = ({ order, onCancel }) => {
       setLoading(false);
     }
   };
-
+ 
   const handleCancel = async () => {
     setCancelling(true);
     try {
@@ -90,8 +91,23 @@ const OrderCard = ({ order, onCancel }) => {
       setCancelling(false);
     }
   };
-
+ 
+  const handleDelete = async () => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete Order #${order.id}? This cannot be undone.`
+    );
+    if (!confirmed) return;
+ 
+    setDeleting(true);
+    try {
+      await onDelete(order.id);
+    } finally {
+      setDeleting(false);
+    }
+  };
+ 
   const canCancel = !isStaff && status !== "Delivered" && status !== "Canceled";
+  const canDelete = isStaff || status === "Not Paid" || status === "Canceled";
 
   return (
     <div className="bg-white rounded-lg shadow-lg mb-8 overflow-hidden">
@@ -123,7 +139,7 @@ const OrderCard = ({ order, onCancel }) => {
               {status}
             </span>
           )}
-
+ 
           {canCancel && (
             <button
               onClick={handleCancel}
@@ -133,16 +149,26 @@ const OrderCard = ({ order, onCancel }) => {
               {cancelling ? "Cancelling..." : "Cancel"}
             </button>
           )}
+ 
+          {canDelete && (
+            <button
+              onClick={handleDelete}
+              disabled={deleting}
+              className="text-red-600 hover:underline disabled:opacity-50"
+            >
+              {deleting ? "Deleting..." : "Delete"}
+            </button>
+          )}
         </div>
       </div>
-
+ 
       {error && <p className="text-red-600 text-sm px-6 pt-2">{error}</p>}
-
+ 
       <div className="p-6">
         <h3 className="font-medium text-lg mb-4">Order Items</h3>
         <OrderTable items={order.items} />
       </div>
-
+ 
       <div className="border-t p-6 flex flex-col items-end">
         <div className="space-y-2 w-full max-w-50">
           <div className="flex justify-between">
@@ -158,7 +184,7 @@ const OrderCard = ({ order, onCancel }) => {
             <span>${totalPrice.toFixed(2)}</span>
           </div>
         </div>
-
+ 
         {!isStaff && status === "Not Paid" && (
           <button 
           onClick={handlePayment}

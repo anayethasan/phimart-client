@@ -20,6 +20,11 @@ import PaymentSuccess from './../pages/Payment/PaymentSuccess';
 import AddProduct from "../pages/AddProduct/AddProduct";
 import AdminProductList from "../pages/AdminProductList/AdminProductList";
 import EditProduct from "../components/AdminProducts/EditProduct";
+import AddCategories from "../pages/AddCategory.jsx/AddCategories";
+import CategoryEdit from "../components/Categories/CategoryEdit";
+import CategoryList from "../pages/AdminCategories/CategoryList";
+import UserList from "../pages/UserList/UserList";
+import ReviewList from "../pages/Reviews/ReviewList";
 
 
 export const router = createBrowserRouter([
@@ -99,10 +104,30 @@ export const router = createBrowserRouter([
           element: <AdminProductList />
         },
         {
-          path: "products/edit/:productId",
+          path: "products/edit/:productId/",
           element: <EditProduct />
         },
+        {
+          path: "categories/add",
+          element: <AddCategories />
+        },
+        {
+          path: "categories/edit/:categoryId",
+          element: <CategoryEdit />
+        },
+        {
+          path: "categories",
+          element: <CategoryList />
+        },
+        {
+          path: "users",
+          element: <UserList />
+        },
+        {
+          path: "reviews",
+          element: <ReviewList />
+        },
       ]
-  },
+    },
   
 ]);

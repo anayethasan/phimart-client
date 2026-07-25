@@ -10,19 +10,19 @@ const Sidebar = () => {
         { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
         { to: "/dashboard/cart", icon: LuBaggageClaim, label: "cart" },
         { to: "/dashboard/orders", icon: FiShoppingCart, label: "Orders" },
-        { to: "/reviews", icon: FiStar, label: "Reviews" },
+        { to: "/dashboard/reviews", icon: FiStar, label: "Reviews" },
     ];
 
     const adminMenus = [
     { to: "/dashboard", icon: FiBarChart2, label: "Dashboard" },
     { to: "/dashboard/products", icon: FiPackage, label: "Products" },
     { to: "/dashboard/products/add", icon: FiPlusCircle, label: "Add Product" },
-    { to: "/categories", icon: FiTag, label: "Categories" },
-    { to: "/categories/add", icon: FiPlusCircle, label: "Add Category" },
+    { to: "/dashboard/categories", icon: FiTag, label: "Categories" },
+    { to: "/dashboard/categories/add", icon: FiPlusCircle, label: "Add Category" },
     { to: "/dashboard/cart", icon: LuBaggageClaim, label: "cart" },
     { to: "/dashboard/orders", icon: FiShoppingCart, label: "Orders" },
-    { to: "/reviews", icon: FiStar, label: "Reviews" },
-    { to: "/users", icon: FiUsers, label: "Users" },
+    { to: "/dashboard/reviews", icon: FiStar, label: "Reviews" },
+    { to: "/dashboard/users", icon: FiUsers, label: "Users" },
     ];
 
     const menuItems = user.is_staff ? adminMenus : customerMenus;

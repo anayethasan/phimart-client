@@ -35,15 +35,25 @@ const Orders = () => {
         }
     };
 
+    const handleDeleteOrder = async (orderId) => {
+        try {
+            await authApiClient.delete(`/orders/${orderId}/`);
+            setOrders((prev) => prev.filter((o) => o.id !== orderId));
+        } catch (error) {
+            console.log("Error deleting order", error);
+            alert("Failed to delete order.");
+        }
+    };
+
     if(loading)
         return ( <div className="flex justify-center items-center py-10 min-h-screen">
                     <span className="loading loading-spinner loading-xl text-secondary scale-200"></span>
                 </div>)
     return (
         <div className="container mx-auto py-8 px-4">
-            <h1 className="text-2xl font-bold mb-6">this is order page</h1>
+            <h1 className="text-2xl font-bold mb-6">Orders</h1>
             {orders.map((order) => (
-                <OrderCard key={order.id} order={order} onCancel={handleCancelOrder} ></OrderCard>
+                <OrderCard key={order.id} order={order} onCancel={handleCancelOrder} onDelete={handleDeleteOrder} ></OrderCard>
             ))}
         </div>
     );
