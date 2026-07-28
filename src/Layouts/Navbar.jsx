@@ -47,9 +47,18 @@ const Navbar = () => {
             <li>
               <NavLink to="/shop">shop</NavLink>
             </li>
+            <li>
+              <NavLink to="/shop?category=4">Books</NavLink>
+            </li>
+            <li>
+              <NavLink to="/shop?category=2">Fashion</NavLink>
+            </li>
+            <li>
+              <NavLink to="/shop?category=1">Electronics</NavLink>
+            </li>
           </ul>
         </div>
-        <NavLink to="/" className="btn btn-ghost text-xl">daisyUI</NavLink>
+        <NavLink to="/" className="btn btn-ghost text-xl">Phimart</NavLink>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
@@ -67,6 +76,15 @@ const Navbar = () => {
             <NavLink to="/shop" className={navLinkClass}>
               Shop
             </NavLink>
+          </li>
+          <li>
+            <NavLink to="/shop?category=4" >Books</NavLink>
+          </li>
+          <li>
+            <NavLink to="/shop?category=2" >Fashion</NavLink>
+          </li>
+          <li>
+            <NavLink to="/shop?category=1" >Electronics</NavLink>
           </li>
         </ul>
       </div>
@@ -110,7 +128,6 @@ const Navbar = () => {
                       <span className="badge">New</span>
                   </Link>
                   </li>
-                  <li><a>Settings</a></li>
                   <li><a onClick={logOutUser}>Logout</a></li>
               </ul>
               </div>

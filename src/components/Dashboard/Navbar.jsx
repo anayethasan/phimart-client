@@ -39,9 +39,6 @@ const Navbar = ({ sidebarOpen }) => {
               </Link>
             </li>
             <li>
-              <Link to="/settings">Settings</Link>
-            </li>
-            <li>
               <button onClick={logOutUser}>Logout</button>
             </li>
           </ul>

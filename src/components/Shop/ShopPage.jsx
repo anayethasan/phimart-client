@@ -1,18 +1,27 @@
-import {  useState } from "react";
+import {  useEffect, useState } from "react";
 import ProductList from "./ProductList";
 import Pagination from "./Pagination";
 import useFetchProduct from "../../hook/useFetchProduct";
 import FilteringSection from "./FilteringSection";
 import useFetchCategories from "../../hook/usefetchCategory";
+import { useSearchParams } from "react-router";
 
 
 const ShopPage = () => {
     
+    const [searchParams] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(1);
     const [priceRange, setPriceRange] = useState([0, 1000]);
-    const [selectedCategory, setSelectedCategory] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState(searchParams.get("category") || "");
     const [searchQuery, setSearchQuery] = useState("");
     const [sortOrder, setSortOrder] = useState("");
+
+    useEffect(() => {
+        const categoryFromUrl = searchParams.get("category") || "";
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setSelectedCategory(categoryFromUrl);
+        setCurrentPage(1);
+    }, [searchParams]);
 
     const {products, loading, totalPages} = useFetchProduct(
         currentPage,
